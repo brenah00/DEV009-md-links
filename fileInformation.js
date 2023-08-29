@@ -11,23 +11,24 @@ function isRelativePath(filePath) {
 function convertToAbsolutePath(relativePath) {
     return path.resolve(relativePath);
 }
-function getFileLinks(markdownText){
+function getFileLinks(markdownText, filePath){
     const linkRegex = /\[([^\]]+)\]\s?\((https?:\/\/[^\)]+)\)/g;
     const allMarkdownLinks = markdownText.match(linkRegex);
     if (allMarkdownLinks) {
         let allLinks = [];
-            allMarkdownLinks.forEach(markdownLink => {
-                allLinks.push({
-                    linkText: (markdownLink.match(/\[([^\]]+)\]/g))[0],
-                    link: (markdownLink.match(/(https?:\/\/[^\s]+)/g))[0],
-                })
-            });
-            console.log('Enlaces encontrados:');
-            allLinks.forEach(link => {
+        allMarkdownLinks.forEach(markdownLink => {
+            allLinks.push({
+                linkText: (markdownLink.match(/\[([^\]]+)\]/g))[0],
+                link: (markdownLink.match(/(https?:\/\/[^\s]+)/g))[0],
+                linkFile: filePath,
+            })
+        });
+        console.log('Enlaces encontrados:');
+        allLinks.forEach(link => {
             console.log(link.link,'link a ', link.linkText);
         });
     } else {
-        console.log('No se encontraron enlaces.');
+        console.error('Links are not found. Try with another markdown file.');
     }
 }
 function getFileContent(filePath){
@@ -46,7 +47,7 @@ function getFileContent(filePath){
             getFileLinks(markdownText);
         }
         else{
-            console.error('Error reading the file, is not a markdown file', errorPath);
+            console.error('Error reading the file, is not a markdown file.', errorPath);
             return;
         }
     });
