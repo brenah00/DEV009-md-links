@@ -5,7 +5,7 @@ const path = require('path');
 getFileContent('README.md')
 
 //Función que valida si el path es relativo, retorna true o false
-function isRelative(filePath) {
+function isRelativePath(filePath) {
     return !path.isAbsolute(filePath);
 }
 function convertToAbsolutePath(relativePath) {
@@ -31,7 +31,7 @@ function getFileLinks(markdownText){
     }
 }
 function getFileContent(filePath){
-    if(isRelative(filePath)){
+    if(isRelativePath(filePath)){
         filePath = convertToAbsolutePath(filePath); 
     }
     console.log('File: ', filePath);
