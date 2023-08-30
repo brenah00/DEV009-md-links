@@ -34,21 +34,23 @@ function getFileLinks(markdownText, filePath){
     // } 
 }
 function getFileContent(filePath){
-    //Extensiones válidas
-    const validExtensions = ['.md', '.mkd', '.mdwn', '.mdown', '.mdtxt', '.mdtext', '.markdown', '.text'];  
-    // Obtener la extensión del archivo
-    const fileExtension = path.extname(filePath);
+    return new Promise((resolve, reject) => {
+        //Extensiones válidas
+        const validExtensions = ['.md', '.mkd', '.mdwn', '.mdown', '.mdtxt', '.mdtext', '.markdown', '.text'];  
+        // Obtener la extensión del archivo
+        const fileExtension = path.extname(filePath);
 
-    fs.readFile(filePath, 'utf-8', (/* errorPath,*/ markdownText) => {
-        // Validación de si la extensión está dentro del arreglo de extensiones válidas
-        /* if(validExtensions.includes(fileExtension)){
-            getFileLinks(markdownText);
-        }
-        else{
-            console.error('Error reading the file, is not a markdown file.', errorPath);
-            return;
-        } */ 
-        return validExtensions.includes(fileExtension) ? markdownText : false;
+        fs.readFile(filePath, 'utf-8', (errorPath, markdownText) => {
+            // Validación de si la extensión está dentro del arreglo de extensiones válidas
+            /* if(validExtensions.includes(fileExtension)){
+                getFileLinks(markdownText);
+            }
+            else{
+                console.error('Error reading the file, is not a markdown file.', errorPath);
+                return;
+            } */ 
+            validExtensions.includes(fileExtension) ? resolve(getFileLinks(markdownText, filePath)) : reject('Error reading the file, is not a markdown file.');
+        });
     });
 }
 module.exports = { isRelativePath, convertToAbsolutePath, getFileLinks, getFileContent};

@@ -4,26 +4,27 @@ const { isRelativePath, convertToAbsolutePath, getFileLinks, getFileContent} = r
 function mdlinks(filePath) {
   return new Promise((resolve, reject) => {
     // Transforma la ruta reloativa a absoluta
+    // console.log('RELATIVO: ', filePath);
     if(isRelativePath(filePath)){
       filePath = convertToAbsolutePath(filePath); 
     }
+    // console.log('ABSOLUTO:', filePath);
     // Validar si la ruta absoluta existe
     if (!fs.existsSync(filePath)) {
       reject('The markdown file does not exist: ', filePath);
       // return; demas, creo
     }
-    const fileContent = getFileContent(filePath);
-    if(fileContent != false){
-      const allLinks = getFileLinks(fileContent, filePath);
-      if(allLinks.length > 0) {
-        resolve(allLinks);
-      } else {
-        reject('Links are not found. Try with another markdown file.');
-      }
-    }
-    else{
-      reject('Error reading the file, is not a markdown file.');
-    }
+    getFileContent(filePath)
+      .then(links => {
+        if(links.length > 0) {
+          resolve(links);
+        } else {
+          reject('Links are not found. Try with another markdown file.');
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      })
   });
 }
 
