@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios'); 
 
 // llama a la función getFileContent con filePath = 'README.md';
 // getFileContent('README.md')
@@ -11,6 +12,21 @@ function isRelativePath(filePath) {
 function convertToAbsolutePath(relativePath) {
     return path.resolve(relativePath);
 }
+function requestLink(link) {
+    return new Promise((resolve, reject) => {
+      axios.get(link)
+        .then(response => {
+            // Manipula los datos de la respuesta aquí
+            // console.log(response.data);
+            resolve(response.status);
+        })
+        .catch(error => {
+            // Maneja el error aquí
+            // console.error(error);
+            reject(error);
+        });
+    });
+}
 function getFileLinks(markdownText, filePath){
     // console.log('markdown text', markdownText);
     const linkRegex = /\[([^\]]+)\]\s?\((https?:\/\/[^\)]+)\)/g;
@@ -19,9 +35,9 @@ function getFileLinks(markdownText, filePath){
     if (allMarkdownLinks) {    
         allMarkdownLinks.forEach(markdownLink => {
             allLinks.push({
-                linkText: (markdownLink.match(/\[([^\]]+)\]/g))[0].slice(1, -1),
-                link: (markdownLink.match(/(https?:\/\/[^\s]+)/g))[0].slice(0, -1),
-                linkFile: filePath,
+                href: (markdownLink.match(/(https?:\/\/[^\s]+)/g))[0].slice(0, -1),
+                text: (markdownLink.match(/\[([^\]]+)\]/g))[0].slice(1, -1),
+                file: filePath,
             })
         });
     }
@@ -53,4 +69,4 @@ function getFileContent(filePath){
         });
     });
 }
-module.exports = { isRelativePath, convertToAbsolutePath, getFileLinks, getFileContent};
+module.exports = { isRelativePath, convertToAbsolutePath, getFileLinks, getFileContent, requestLink};
