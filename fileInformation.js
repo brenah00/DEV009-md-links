@@ -6,23 +6,19 @@ const axios = require('axios');
 // getFileContent('README.md')
 
 //Función que valida si el path es relativo, retorna true o false
-function isRelativePath(filePath) {
+/* function isRelativePath(filePath) {
     return !path.isAbsolute(filePath);
 }
 function convertToAbsolutePath(relativePath) {
     return path.resolve(relativePath);
-}
+} */
 function requestLink(link) {
     return new Promise((resolve, reject) => {
       axios.get(link)
         .then(response => {
-            // Manipula los datos de la respuesta aquí
-            // console.log(response.data);
             resolve(response.status);
         })
         .catch(error => {
-            // Maneja el error aquí
-            // console.error(error);
             reject(error);
         });
     });
@@ -42,15 +38,8 @@ function getFileLinks(markdownText, filePath){
         });
     }
     return allLinks;
-        /* console.log('Enlaces encontrados:');
-        allLinks.forEach(link => {
-            console.log(link.link,'link a ', link.linkText);
-        });*/ 
-    // }/* else {
-    //    console.error('Links are not found. Try with another markdown file.');
-    // } 
 }
-function getFileContent(filePath){
+/* function getFileContent(filePath){
     return new Promise((resolve, reject) => {
         //Extensiones válidas
         const validExtensions = ['.md', '.mkd', '.mdwn', '.mdown', '.mdtxt', '.mdtext', '.markdown', '.text'];  
@@ -68,5 +57,5 @@ function getFileContent(filePath){
             }
         });
     });
-}
-module.exports = { isRelativePath, convertToAbsolutePath, getFileLinks, getFileContent, requestLink};
+} */
+module.exports = {/* isRelativePath, convertToAbsolutePath,*/ getFileLinks,/* getFileContent,*/ requestLink};

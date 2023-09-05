@@ -1,21 +1,26 @@
 const fs = require('fs');
-const { isRelativePath, convertToAbsolutePath, getFileContent, requestLink} = require('./fileInformation.js')
+const path = require('path');
+const axios = require('axios'); 
+const { requestLink, getFileLinks } = require('./fileInformation.js')
 
 function mdlinks(filePath, validate) {
   return new Promise((resolve, reject) => {
     // Transforma la ruta reloativa a absoluta
-    // console.log('RELATIVO: ', filePath);
-    if(isRelativePath(filePath)){
-      filePath = convertToAbsolutePath(filePath); 
+    if(!path.isAbsolute(filePath)){
+      filePath = path.resolve(filePath); 
     }
-    // console.log('ABSOLUTO:', filePath);
     // Validar si la ruta absoluta existe
     if (!fs.existsSync(filePath)) {
       reject('The markdown file does not exist.');
       return;
     }
-    getFileContent(filePath)
-      .then(links => {
+    const validExtensions = ['.md', '.mkd', '.mdwn', '.mdown', '.mdtxt', '.mdtext', '.markdown', '.text'];  
+    // Obtener la extensión del archivo
+    const fileExtension = path.extname(filePath);
+    fs.readFile(filePath, 'utf-8', (errorPath, markdownText) => {
+      // Validación de si la extensión está dentro del arreglo de extensiones válidas
+      if(validExtensions.includes(fileExtension)){
+        const links = getFileLinks(markdownText, filePath);
         if(links.length > 0) {
           if(validate === true) {
             const promises = links.map(linkRequested => {
@@ -29,8 +34,6 @@ function mdlinks(filePath, validate) {
                   linkRequested.request = 'fail';
                 });
             });
-
-            // Esperar a que todas las solicitudes se completen antes de resolver la promesa principal
             Promise.all(promises)
               .then(() => {
                 resolve(links);
@@ -40,25 +43,24 @@ function mdlinks(filePath, validate) {
               });
           } else {
             resolve(links);
-          }
-          // return;
-        } else {
-          reject('Links are not found. Try with another markdown file.');
-          // return;
-        }
-      })
-      .catch((error) => {
-        reject(error);
+          } 
         // return;
-      })
+        } else {
+          reject('Links are not found. Try with another markdown file.'); // return;
+        }
+      } else{
+        reject('Error reading the file, is not a markdown file.'); // return;
+      }
+    });
   });
 }
 
-mdlinks('README1.md', true)
+/* mdlinks('README1.md', true)
   .then((links) => {
     console.log(links);
   })
   .catch((error) => {
     console.log(error);
-  })
-module.exports = mdlinks ;
+  }); */
+
+module.exports = mdlinks;
