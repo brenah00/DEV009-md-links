@@ -12,14 +12,15 @@ function convertToAbsolutePath(relativePath) {
     return path.resolve(relativePath);
 }
 function getFileLinks(markdownText, filePath){
+    // console.log('markdown text', markdownText);
     const linkRegex = /\[([^\]]+)\]\s?\((https?:\/\/[^\)]+)\)/g;
     const allMarkdownLinks = markdownText.match(linkRegex);
     let allLinks = [];
     if (allMarkdownLinks) {    
         allMarkdownLinks.forEach(markdownLink => {
             allLinks.push({
-                linkText: (markdownLink.match(/\[([^\]]+)\]/g))[0],
-                link: (markdownLink.match(/(https?:\/\/[^\s]+)/g))[0],
+                linkText: (markdownLink.match(/\[([^\]]+)\]/g))[0].slice(1, -1),
+                link: (markdownLink.match(/(https?:\/\/[^\s]+)/g))[0].slice(0, -1),
                 linkFile: filePath,
             })
         });
@@ -42,14 +43,13 @@ function getFileContent(filePath){
 
         fs.readFile(filePath, 'utf-8', (errorPath, markdownText) => {
             // Validación de si la extensión está dentro del arreglo de extensiones válidas
-            /* if(validExtensions.includes(fileExtension)){
-                getFileLinks(markdownText);
+            if(validExtensions.includes(fileExtension)){
+                resolve(getFileLinks(markdownText, filePath));
+                // return;
+            } else{
+                reject('Error reading the file, is not a markdown file.')
+                // return;
             }
-            else{
-                console.error('Error reading the file, is not a markdown file.', errorPath);
-                return;
-            } */ 
-            validExtensions.includes(fileExtension) ? resolve(getFileLinks(markdownText, filePath)) : reject('Error reading the file, is not a markdown file.');
         });
     });
 }

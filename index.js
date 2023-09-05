@@ -11,21 +11,31 @@ function mdlinks(filePath) {
     // console.log('ABSOLUTO:', filePath);
     // Validar si la ruta absoluta existe
     if (!fs.existsSync(filePath)) {
-      reject('The markdown file does not exist: ', filePath);
-      // return; demas, creo
+      reject('The markdown file does not exist.');
+      return;
     }
     getFileContent(filePath)
       .then(links => {
         if(links.length > 0) {
           resolve(links);
+          // return;
         } else {
           reject('Links are not found. Try with another markdown file.');
+          // return;
         }
       })
       .catch((error) => {
         reject(error);
+        // return;
       })
   });
 }
 
+/* mdlinks('README1.md')
+  .then((links) => {
+    console.log(links);
+  })
+  .catch((error) => {
+    console.log(error);
+  }) */
 module.exports = mdlinks ;
