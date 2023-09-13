@@ -99,4 +99,15 @@ function getFileContent(filePath, validate){
     });
   });
 }
-module.exports = { getFileLinks, getFileContent, requestLink, readAllFiles};
+function stats(links, validate){
+  const linkStats = {
+    'Total': links.length,
+    'Unique': links.filter((element, index, self) => self.indexOf(element) === index).length
+  };
+  if(validate === true){
+    linkStats.OK = links.filter((link) => link.request === 'ok').length;
+    linkStats.Broken = links.filter((link) => link.request === 'fail').length;
+  }
+  return linkStats;
+}
+module.exports = { getFileLinks, getFileContent, requestLink, readAllFiles, stats};

@@ -23,13 +23,4 @@ function mdlinks(filePath, validate) {
     } 
   });
 }
-
-/* mdlinks('../DEV009-md-links', true)
-  .then((links) => {
-    console.log(links);
-  })
-  .catch((error) => {
-    console.log(error);
-  }); */
-
 module.exports = mdlinks;
