@@ -3,13 +3,7 @@ const path = require('path');
 const axios = require('axios'); 
 
 const validExtensions = ['.md', '.mkd', '.mdwn', '.mdown', '.mdtxt', '.mdtext', '.markdown', '.text'];
-//Función que valida si el path es relativo, retorna true o false
-/* function isRelativePath(filePath) {
-    return !path.isAbsolute(filePath);
-}
-function convertToAbsolutePath(relativePath) {
-    return path.resolve(relativePath);
-} */
+
 function requestLink(link) {
   return new Promise((resolve, reject) => {
     axios.get(link)
@@ -48,7 +42,6 @@ function readAllFiles(directoryPath, validate){
         const links = getFileContent(filePath, validate)
           .then(fileLinks => fileLinks)
           .catch(error => {
-            // console.error(`Error en el archivo ${filePath}: ${error}`);
             return [];
           });
         promises.push(links);
@@ -60,8 +53,6 @@ function readAllFiles(directoryPath, validate){
         return linkArrays.reduce((accumulator, links) => accumulator.concat(links), []);
       })
       .catch(error => {
-        /* console.error('Error en la función principal:', error);
-        throw error; */
       });
 }
 function getFileContent(filePath, validate){
@@ -69,11 +60,6 @@ function getFileContent(filePath, validate){
     // Transforma la ruta reloativa a absoluta
     if(!path.isAbsolute(filePath)){
       filePath = path.resolve(filePath); 
-    }
-    // Validar si la ruta absoluta existe
-    if (!fs.existsSync(filePath)) {
-      reject('The markdown file does not exist.');
-      return;
     }
     // Obtener la extensión del archivo
     const fileExtension = path.extname(filePath);
@@ -104,14 +90,13 @@ function getFileContent(filePath, validate){
           } else {
             resolve(links);
           } 
-          // return;
         } else {
-          reject('Links are not found. Try with another markdown file.'); // return;
+          reject('Links are not found. Try with another markdown file.');
         }
       } else{
-        reject('Error reading the file, is not a markdown file.'); // return;
+        reject('Error reading the file, is not a markdown file.');
       }
     });
   });
 }
-module.exports = {/* isRelativePath, convertToAbsolutePath,*/ getFileLinks, getFileContent, requestLink, readAllFiles};
+module.exports = { getFileLinks, getFileContent, requestLink, readAllFiles};
