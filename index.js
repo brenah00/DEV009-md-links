@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios'); 
-const { requestLink, getFileLinks, readAllFiles, getFileContent } = require('./fileInformation.js')
+const { readAllFiles, getFileContent } = require('./fileInformation.js')
 
 function mdlinks(filePath, validate) {
   return new Promise((resolve, reject) => {
@@ -19,7 +19,7 @@ function mdlinks(filePath, validate) {
         resolve(readAllFiles(filePath, validate));
       }
     } catch (error) {
-      reject('The markdown file or directory does not exist.');
+      reject('El archivo markdown o directorio no existe.');
     } 
   });
 }

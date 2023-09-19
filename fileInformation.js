@@ -94,10 +94,10 @@ function getFileContent(filePath, validate){
             resolve(links);
           } 
         } else {
-          reject('Links are not found. Try with another markdown file.');
+          reject('No existen enlaces, intenta con otro archivo markdown.');
         }
       } else{
-        reject('Error reading the file, is not a markdown file.');
+        reject('Error al leer el archivo, ingresa un archivo markdown.');
       }
     });
   });
