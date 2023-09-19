@@ -45,6 +45,9 @@ function readAllFiles(directoryPath, validate){
             return [];
           });
         promises.push(links);
+      } else if (fs.statSync(filePath).isDirectory()) {
+        const links = readAllFiles(filePath, validate)
+        promises.push(links);
       }
     }
   
