@@ -103,9 +103,16 @@ function getFileContent(filePath, validate){
   });
 }
 function stats(links, validate){
+  const unique = new Set();
   const linkStats = {
     'Total': links.length,
-    'Unique': links.filter((element, index, self) => self.indexOf(element) === index).length
+    'Unique': links.filter(link => {
+      if (!unique.has(link.href)) {
+        unique.add(link.href);
+        return true;
+      }
+      //return false;
+    }).length
   };
   if(validate === true){
     linkStats.OK = links.filter((link) => link.request === 'ok').length;
