@@ -48,7 +48,7 @@ Esto te mostrará todos los enlaces encontrados en el archivo o  directorio prop
  * **text** - Texto al que hace referencia el enlace
  * **file** - Ruta en la que el enlace fue encontrado
 
-[V-deo-sin-t-tulo-Hecho-con-Clipchamp.gif](https://postimg.cc/ZC3vtM5t)
+[![V-deo-sin-t-tulo-Hecho-con-Clipchamp.gif](https://i.postimg.cc/pXcf8NNT/V-deo-sin-t-tulo-Hecho-con-Clipchamp.gif)](https://postimg.cc/ZC3vtM5t)
 
 Esta librería tiene 2 opciones para su ejecución:
 
