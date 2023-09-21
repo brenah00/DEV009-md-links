@@ -60,7 +60,7 @@ function readAllFiles(directoryPath, validate){
 }
 function getFileContent(filePath, validate){
   return new Promise((resolve, reject) => {
-    // Transforma la ruta reloativa a absoluta
+    // Transforma la ruta relativa a absoluta
     if(!path.isAbsolute(filePath)){
       filePath = path.resolve(filePath); 
     }
@@ -111,7 +111,7 @@ function stats(links, validate){
         unique.add(link.href);
         return true;
       }
-      //return false;
+      return false;
     }).length
   };
   if(validate === true){

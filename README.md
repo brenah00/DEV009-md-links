@@ -48,19 +48,24 @@ Esto te mostrará todos los enlaces encontrados en el archivo o  directorio prop
 
 Esta librería tiene 2 opciones para su ejecución:
 
-`--validate`
+#### `--validate`
 
 Validará si el link funciona correctamente o si está roto, añadiendo a cada enlace los parámetros:
- * **status** 
- * **request**
+ * **status** - Códigos de respuesta HTTP
+ * **request** - La solicitud fue exitosa o falló
 
-`--stats`
+#### `--stats`
 
 Mostrará estadísticas de los links como:
  * **Total** - Cantidad de enlaces encontrados
  * **Unique** - Cantidad de enlaces únicos, es decir, sin repetición.
 
-En caso de que esta opción se combine con _--validate_, se agregarán dos estadísticas: 
+En caso de que esta opción se combine con `--validate`, se agregarán dos estadísticas: 
 * **OK** - Cantidad de enlaces que redirigen correctamente.
 * **Broken** - Cantidad de enlaces rotos.
 
+## Implementación y funcionamiento
+
+Esta librería fue desarrolla con nodeJS y Javascript. 
+
+[![mdlinks.jpg](https://i.postimg.cc/tgQNLm6q/mdlinks.jpg)](https://postimg.cc/qNwKKwQS)
