@@ -48,7 +48,7 @@ Esto te mostrará todos los enlaces encontrados en el archivo o  directorio prop
  * **text** - Texto al que hace referencia el enlace
  * **file** - Ruta en la que el enlace fue encontrado
 
-[![V-deo-sin-t-tulo-Hecho-con-Clipchamp.gif](https://i.postimg.cc/pXcf8NNT/V-deo-sin-t-tulo-Hecho-con-Clipchamp.gif)](https://postimg.cc/ZC3vtM5t)
+![mdlinks-archivo](./media_files/mdlinks_cli.gif)
 
 Esta librería tiene 2 opciones para su ejecución:
 
@@ -57,6 +57,8 @@ Esta librería tiene 2 opciones para su ejecución:
 Validará si el link funciona correctamente o si está roto, añadiendo a cada enlace los parámetros:
  * **status** - Códigos de respuesta HTTP
  * **request** - La solicitud fue exitosa o falló
+
+![mdlinks-validate](./media_files/mdlinks_validate.gif)
 
 #### `--stats`
 
@@ -68,8 +70,10 @@ En caso de que esta opción se combine con `--validate`, se agregarán dos estad
 * **OK** - Cantidad de enlaces que redirigen correctamente.
 * **Broken** - Cantidad de enlaces rotos.
 
+![mdlinks-stats-validate](./media_files/mdlinks_stats.png)
+
 ## Implementación
 
-Esta librería fue desarrolla con nodeJS y Javascript. 
+Esta librería fue desarrolla con nodeJS y Javascript. El siguiente diagrama de flujo corresponde a la lógica programática.
 
 [![mdlinks.jpg](https://i.postimg.cc/tgQNLm6q/mdlinks.jpg)](https://postimg.cc/qNwKKwQS)
