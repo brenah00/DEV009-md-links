@@ -2,17 +2,18 @@
 
 ## Índice
 
-* [1. Resumen del proyecto](#1-resumen-del-proyecto)
-* [2. Instalación](#2-instalación)
-* [3. Funcionamiento](#3-funcionamiento)
+* [1. Resumen del proyecto](#resumen-del-proyecto)
+* [2. Instalación](#instalación)
+* [3. Funcionamiento](#funcionamiento)
+* [4. Implementación](#implementación)
 
 ***
 
-## 1. Resumen del proyecto
+## Resumen del proyecto
 
 [![mdlinks-start.png](https://i.postimg.cc/fysmvZ54/mdlinks-start.png)](https://postimg.cc/WF9d2BQS)
 
-**Markdown** es un lenguaje de marcado ligero utilizado en diferentes plataformas que manejan texto planopor lo que es común encontrar variedad de archivos en ese formato en cualquier tipo de repositorio.
+**Markdown** es un lenguaje de marcado ligero utilizado en diferentes plataformas que manejan texto plano por lo que es común encontrar variedad de archivos en ese formato en cualquier tipo de repositorio.
 
 Generalmente en estos archivos se comparte información relevante del desarrollo y puede venir acompañado de *links*, los cuales en diferentes casos pueden estar rotos por lo que afecta en la comunicación con quién está leyendo.
 
@@ -24,14 +25,14 @@ Esta librería estará disponible de dos formas:
 
 * *Interfaz de línea de comandos* (CLI) para poder ser usada desde la terminal. La cual puede proporcionar la validación de enlaces y estadísticas.
 
-## 2. Instalación
+## Instalación
 
 Ejecuta este comando en la terminal
 
 ```
 npm install brenah00/DEV009-md-links
 ```
-## 3. Funcionamiento
+## Funcionamiento
 
 Una vez que se haya completado la instalación, puedes usarla en:
 
@@ -40,7 +41,7 @@ Una vez que se haya completado la instalación, puedes usarla en:
 Para ejecutarlo escribe lo siguiente:
 
 ```
-mdlinks ruta-archivo-o-directorio
+mdlinks ruta-archivo-o-directorio [opciones]
 ```
 
 Esto te mostrará todos los enlaces encontrados en el archivo o  directorio proporcionado con los siguientes parámetros:
